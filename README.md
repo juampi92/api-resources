@@ -1,8 +1,8 @@
 # Api Resources
 [![Latest Version](https://img.shields.io/github/release/juampi92/api-resources.svg?style=flat-square)](https://github.com/juampi92/api-resources/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/juampi92/api-resources/master.svg?style=flat-square)](https://travis-ci.org/juampi92/api-resources)
 [![Total Downloads](https://img.shields.io/packagist/dt/juampi92/api-resources.svg?style=flat-square)](https://packagist.org/packages/juampi92/api-resources)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 Manage your resources maintaining API versioning. With a simple middleware separate routes by api version, and smart instanciate [Http\Resources](https://laravel.com/docs/5.5/eloquent-resources) based on this version.
 
