@@ -13,9 +13,9 @@ class APIResourcesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      if ($this->app->runningInConsole()) {
-          $this->registerPublishables();
-      }
+        if ($this->app->runningInConsole()) {
+            $this->registerPublishables();
+        }
     }
 
     /**
@@ -25,9 +25,9 @@ class APIResourcesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-      $this->app->singleton('apiresource', function ($app) {
-          return new APIResourceManager();
-      });
+        $this->app->singleton('apiresource', function ($app) {
+            return new APIResourceManager();
+        });
     }
 
     /**
@@ -37,9 +37,8 @@ class APIResourcesServiceProvider extends ServiceProvider
      */
     protected function registerPublishables()
     {
-      $this->mergeConfigFrom(__DIR__.'/../publishable/config/api.php', 'api');
-      $this->publishes([
-          __DIR__.'/../publishable/config/api.php' => config_path('api.php'),
-      ]);
+        $this->publishes([
+            __DIR__ . '/../publishable/config/api.php' => config_path('api.php'),
+        ]);
     }
 }

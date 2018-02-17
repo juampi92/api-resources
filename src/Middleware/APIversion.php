@@ -14,6 +14,9 @@ class APIversion
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
      *
+     * @param string $api_v
+     * @param string $api_name = null
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, $api_v, $api_name = null)

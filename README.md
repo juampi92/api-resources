@@ -39,7 +39,7 @@ The package will automatically register itself.
 To publish the config file to `config/api.php` run:
 
 ```bash
-php artisan vendor:publish --provider="Juampi92/APIResources/APIResourcesServiceProvider"
+php artisan vendor:publish --provider="Juampi92\APIResources\APIResourcesServiceProvider"
 ```
 
 This will publish a file `api.php` in your config directory with the following content:
@@ -82,21 +82,14 @@ return [
 
 ### Middleware
 
-Install this middleware on your `Http/Kernel.php`
+Install this middleware on your `Http/Kernel.php` under the `$routeMiddleware`
 
 ```php
-  'api.v'           => Juampi92\APIResources\Middleware\APIversion
-  'api.deprecated'  => Juampi92\APIResources\Middleware\APIdeprecated
-```
-
-### Translate
-
-The APIdeprecated middleware throws an error with a translatable message. It can be translated by adding into your lang errors file (`resources/lang/_/errors.php`) the following:
-
-```php
-  'api' => [
-    'deprecated' => 'That version of the app has been deprecated. Please upgrade',
-  ],
+  protected $routeMiddleware = [
+    ...
+    'api.v'           => \Juampi92\APIResources\Middleware\APIversion,
+    ...
+  ];
 ```
 
 ## Configure correctly
@@ -221,10 +214,6 @@ class Post extends Resource {
     }
 }
 ```
-
-## Deprecated
-
-Documentation will come
 
 ## Multiple APIs
 
