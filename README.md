@@ -140,7 +140,7 @@ Route::group([
     require base_path('routes/app_api.v1.php');
 });
 
-// App v1 API
+// App v2 API
 Route::group([
     'middleware' => ['app', 'api.v:2'],
     'prefix'     => 'api/v2',
