@@ -1,0 +1,45 @@
+{
+    "name": "juampi92/api-resources",
+    "description": "Manage your resources maintaining API versioning",
+    "homepage": "https://github.com/juampi92/api-resources",
+    "license": "MIT",
+    "keywords": ["laravel", "api"],
+    "authors": [
+        {
+            "name": "juampi92",
+            "email": "juampi92@gmail.com"
+        }
+    ],
+    "require": {
+      "php": ">=7.0.0",
+      "illuminate/support": "~5.5",
+      "illuminate/http": "~5.5"
+    },
+    "require-dev": {
+      "orchestra/testbench": "~3.5",
+      "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Juampi92\\APIResources\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Juampi92\\APIResources\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Juampi92\\APIResources\\APIResourcesServiceProvider"
+            ],
+            "aliases": {
+                "APIResource": "Juampi92\\APIResources\\Facades\\APIResource"
+            }
+        }
+    }
+}
