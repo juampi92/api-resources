@@ -31,14 +31,14 @@ class APIResourcesServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registers the publishable config
+     * Registers the publishable config.
      *
      * @return void
      */
     protected function registerPublishables()
     {
         $this->publishes([
-            __DIR__ . '/../publishable/config/api.php' => config_path('api.php'),
+            __DIR__.'/../publishable/config/api.php' => config_path('api.php'),
         ]);
     }
 }

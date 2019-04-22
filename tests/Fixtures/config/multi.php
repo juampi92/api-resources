@@ -12,8 +12,8 @@ return [
    */
 
    'version' => [
-     'app' => '1',
-     'desktop' => '2'
+     'app'     => '1',
+     'desktop' => '2',
    ],
 
    /*
@@ -47,8 +47,8 @@ return [
      */
 
     'resources' => [
-      'app' => 'App',
-      'desktop' => 'Api'
-    ]
+      'app'     => 'App',
+      'desktop' => 'Api',
+    ],
 
  ];

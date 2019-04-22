@@ -2,10 +2,7 @@
 
 namespace Juampi92\APIResources\Tests;
 
-use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 use Juampi92\APIResources\APIResourceManager;
-use Juampi92\APIResources\APIResource;
-use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourcesMultipleTest extends TestCase
 {
@@ -14,14 +11,14 @@ class APIResourcesMultipleTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/Fixtures/config/multi.php']);
+        config(['api' => require __DIR__.'/Fixtures/config/multi.php']);
     }
 
     public function test_nested_resources_with_fallback()
     {
         config([
             'api.version' => [
-                'app' => '2',
+                'app'     => '2',
                 'desktop' => '1',
             ],
             'api.default' => 'app',

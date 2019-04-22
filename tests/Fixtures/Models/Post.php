@@ -13,10 +13,10 @@ class User implements Arrayable
 
     public function toArray($request)
     {
-      return [
-        'id' => 2,
+        return [
+        'id'    => 2,
         'title' => 'asdasd',
-        'body' => 'Lorem Ipsum'
+        'body'  => 'Lorem Ipsum',
       ];
     }
 }

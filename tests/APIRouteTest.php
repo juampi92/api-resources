@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Juampi92\APIResources\Tests;
-
 
 use Juampi92\APIResources\APIResourceManager;
 
@@ -13,7 +11,7 @@ class APIRouteTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/../publishable/config/api.php']);
+        config(['api' => require __DIR__.'/../publishable/config/api.php']);
     }
 
     public function test_it_can_get_default_route_prefix()
@@ -37,7 +35,7 @@ class APIRouteTest extends TestCase
     public function test_it_can_get_multiple_resources()
     {
         config(['api.resources' => [
-            'app' => 'App2',
+            'app'     => 'App2',
             'default' => 'Apii',
         ]]);
         $resourceManager = new APIResourceManager();
@@ -53,13 +51,13 @@ class APIRouteTest extends TestCase
     {
         config([
             'api.route_prefix' => [
-                'app' => 'this_is_custom',
+                'app'     => 'this_is_custom',
                 'default' => 'wow',
             ],
             'api.resources' => [
-                'app' => 'App2',
+                'app'     => 'App2',
                 'default' => 'Apii',
-            ]]);
+            ], ]);
         $resourceManager = new APIResourceManager();
 
         $resourceManager->setVersion('1', 'app');
@@ -73,7 +71,7 @@ class APIRouteTest extends TestCase
     {
         config([
             'api.route_prefix' => 'app.api',
-            'api.resources' => 'App\API',
+            'api.resources'    => 'App\API',
         ]);
         $resourceManager = new APIResourceManager();
 

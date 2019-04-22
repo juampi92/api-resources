@@ -3,9 +3,6 @@
 namespace Juampi92\APIResources\Tests;
 
 use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
-use Juampi92\APIResources\APIResourceManager;
-use Juampi92\APIResources\APIResource;
-use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourceCollectionTest extends TestCase
 {
@@ -14,7 +11,7 @@ class APIResourceCollectionTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/Fixtures/config/simple.php']);
+        config(['api' => require __DIR__.'/Fixtures/config/simple.php']);
     }
 
     public function test_simple_resource_with_collection()
@@ -31,7 +28,7 @@ class APIResourceCollectionTest extends TestCase
                 'rank' => [
                     'id'   => 1,
                     'name' => 'adm',
-                    'v'    => 2
+                    'v'    => 2,
                 ],
                 'v'    => 2,
             ], [
@@ -40,7 +37,7 @@ class APIResourceCollectionTest extends TestCase
                 'rank' => [
                     'id'   => 1,
                     'name' => 'adm',
-                    'v'    => 2
+                    'v'    => 2,
                 ],
                 'v'    => 2,
             ],
@@ -66,7 +63,7 @@ class APIResourceCollectionTest extends TestCase
                 'rank' => [
                     'id'   => 1,
                     'name' => 'adm',
-                    'v'    => 2
+                    'v'    => 2,
                 ],
                 'v'    => 2,
             ], [
@@ -75,12 +72,12 @@ class APIResourceCollectionTest extends TestCase
                 'rank' => [
                     'id'   => 1,
                     'name' => 'adm',
-                    'v'    => 2
+                    'v'    => 2,
                 ],
                 'v'    => 2,
             ],
         ],
-                                               'asd'  => $asd
+                                               'asd'  => $asd,
         ]);
     }
 }

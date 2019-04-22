@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Juampi92\APIResources\Tests;
-
 
 use Juampi92\APIResources\APIResourceManager;
 
@@ -13,7 +11,7 @@ class APIConfigTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/../publishable/config/api.php']);
+        config(['api' => require __DIR__.'/../publishable/config/api.php']);
     }
 
     public function test_it_can_get_nested_routes()

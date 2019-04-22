@@ -2,10 +2,10 @@
 
 namespace Juampi92\APIResources\Tests;
 
-use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
-use Juampi92\APIResources\APIResourceManager;
 use Juampi92\APIResources\APIResource;
+use Juampi92\APIResources\APIResourceManager;
 use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
+use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 
 class APIResourceTest extends TestCase
 {
@@ -14,7 +14,7 @@ class APIResourceTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/Fixtures/config/simple.php']);
+        config(['api' => require __DIR__.'/Fixtures/config/simple.php']);
     }
 
     public function test_manager_resolve_returns_a_resource()
@@ -59,7 +59,7 @@ class APIResourceTest extends TestCase
             'rank' => [
                 'id'   => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v'    => 2,
             ],
             'v'    => 2,
         ]]);
@@ -106,7 +106,7 @@ class APIResourceTest extends TestCase
             'rank' => [
                 'id'   => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v'    => 2,
             ],
             'v'    => 2,
         ]]);
@@ -130,12 +130,11 @@ class APIResourceTest extends TestCase
             'rank' => [
                 'id'   => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v'    => 2,
             ],
             'v'    => 1,
         ]]);
     }
-
 
     public function test_without_resource_folder()
     {

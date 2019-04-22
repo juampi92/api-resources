@@ -11,7 +11,7 @@ class ResourcePathResolveTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/../publishable/config/api.php']);
+        config(['api' => require __DIR__.'/../publishable/config/api.php']);
     }
 
     public function test_it_can_resolve_api_changes()

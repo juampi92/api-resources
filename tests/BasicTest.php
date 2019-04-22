@@ -12,7 +12,7 @@ class BasicTest extends TestCase
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/Fixtures/config/simple.php']);
+        config(['api' => require __DIR__.'/Fixtures/config/simple.php']);
     }
 
     public function test_it_can_construct()
@@ -26,8 +26,8 @@ class BasicTest extends TestCase
         config(['api' => [
             'version'        => '2',
             'resources_path' => 'App\Resources',
-            'resources'      => 'Api'
-        ]
+            'resources'      => 'Api',
+        ],
         ]);
         $object = new APIResourceManager();
         $this->assertAttributeEquals('2', 'current', $object);
@@ -37,8 +37,8 @@ class BasicTest extends TestCase
         config(['api' => [
             'version'        => '1',
             'resources_path' => 'App\Resources2',
-            'resources'      => 'Api2'
-        ]
+            'resources'      => 'Api2',
+        ],
         ]);
         $object->setVersion('2');
         $this->assertAttributeEquals('2', 'current', $object);

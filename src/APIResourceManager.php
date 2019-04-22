@@ -32,8 +32,7 @@ class APIResourceManager
     protected $routePath;
 
     /**
-     * API Resource constructor
-     *
+     * API Resource constructor.
      */
     public function __construct()
     {
@@ -52,6 +51,7 @@ class APIResourceManager
      * Returns the name of the versioned route.
      *
      * @param string $route
+     *
      * @return string
      */
     public function getRouteName($route)
@@ -63,15 +63,17 @@ class APIResourceManager
             $this->routePath = $this->getConfig('route_prefix')
                 ?: str_replace('\\', '.', strtolower($this->getConfig('resources')));
         }
-        return "{$this->routePath}.v{$this->current}" . str_after($route, $this->routePath);
+
+        return "{$this->routePath}.v{$this->current}".str_after($route, $this->routePath);
     }
 
     /**
      * Returns the versioned url.
      *
      * @param string $name
-     * @param array $parameters
-     * @param bool $absolute
+     * @param array  $parameters
+     * @param bool   $absolute
+     *
      * @return string
      */
     protected function getRoute($name, $parameters = [], $absolute = true)
@@ -80,9 +82,9 @@ class APIResourceManager
     }
 
     /**
-     *  Get config considering the API name if present
+     *  Get config considering the API name if present.
      *
-     * @param string $cfg Config path
+     * @param string $cfg  Config path
      * @param string $name Name of api if present
      *
      * @return mixed The result of the config
@@ -99,7 +101,7 @@ class APIResourceManager
     }
 
     /**
-     * Sets the current API version
+     * Sets the current API version.
      *
      * @param string $current
      * @param string $apiName = null
@@ -127,7 +129,7 @@ class APIResourceManager
     }
 
     /**
-     * Gets the current API version
+     * Gets the current API version.
      *
      * @return string
      */
@@ -137,7 +139,7 @@ class APIResourceManager
     }
 
     /**
-     * Checks if the given version is the latest
+     * Checks if the given version is the latest.
      *
      * @param string $c
      *
@@ -153,10 +155,10 @@ class APIResourceManager
     }
 
     /**
-     * Returns the classname with the version considering
+     * Returns the classname with the version considering.
      *
      * @param string $classname
-     * @param bool $forceLatest Set to true if last version is required
+     * @param bool   $forceLatest Set to true if last version is required
      *
      * @return string
      */
@@ -165,12 +167,12 @@ class APIResourceManager
         $v = $forceLatest ? $this->latest : $this->current;
 
         if (!empty($this->resources)) {
-            $path = $this->resources . "\\v{$v}\\" . str_after($classname, $this->resources . "\\");
+            $path = $this->resources."\\v{$v}\\".str_after($classname, $this->resources.'\\');
         } else {
-            $path = "v{$v}\\" . $classname;
+            $path = "v{$v}\\".$classname;
         }
 
-        $path = "\\" . $this->path . "\\" . $path;
+        $path = '\\'.$this->path.'\\'.$path;
 
         return $path;
     }
@@ -178,12 +180,13 @@ class APIResourceManager
     /**
      * Smart builds the classname using the correct version.
      * If it fails with the current version, it falls back to
-     * the latest version. If it still fails, throw exception
+     * the latest version. If it still fails, throw exception.
      *
      * @param string $classname
      *
-     * @return APIResource
      * @throws Exceptions\ResourceNotFoundException
+     *
+     * @return APIResource
      */
     public function resolve($classname)
     {
@@ -211,25 +214,27 @@ class APIResourceManager
 
     /**
      * @param string $classname
-     * @param array $args
+     * @param array  $args
      *
      * @return \Illuminate\Http\Resources\Json\Resource
      */
     public function make($classname, ...$args)
     {
         $resource = $this->resolve($classname);
+
         return $resource->make(...$args);
     }
 
     /**
      * @param string $classname
-     * @param array ...$args
+     * @param array  ...$args
      *
      * @return \Illuminate\Http\Resources\Json\Resource
      */
     public function collection($classname, ...$args)
     {
         $resource = $this->resolve($classname);
+
         return $resource->collection(...$args);
     }
 }

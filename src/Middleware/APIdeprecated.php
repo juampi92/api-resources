@@ -9,8 +9,9 @@ class APIdeprecated
     /**
      * Deprecate all incoming requests.
      *
-     * @return mixed
      * @throws APIDeprecatedException
+     *
+     * @return mixed
      */
     public function handle()
     {

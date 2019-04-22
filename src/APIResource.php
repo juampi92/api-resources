@@ -7,7 +7,7 @@ class APIResource
     protected $path;
 
     /**
-     * API Resource constructor
+     * API Resource constructor.
      *
      * @param $path
      */

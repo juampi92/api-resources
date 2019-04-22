@@ -33,6 +33,6 @@ return [
     | in the root, leave this empty ''
      */
 
-    'resources' => 'App'
+    'resources' => 'App',
 
  ];

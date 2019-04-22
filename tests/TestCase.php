@@ -2,8 +2,8 @@
 
 namespace Juampi92\APIResources\Tests;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use Juampi92\APIResources\APIResourcesServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -33,6 +33,7 @@ abstract class TestCase extends BaseTestCase
         $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
+
         return $method->invokeArgs($obj, $args);
     }
 }
