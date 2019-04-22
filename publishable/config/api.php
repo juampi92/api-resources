@@ -45,7 +45,7 @@ return [
     | By default, the route prefix is the lowercase resources folder.
     | So it'd be `app.v1.auth.login` has the prefix `app`.
     |
-    | api_route(`app.auth.login`) => `app.v?.auth.login`.
+    | Using `app` will do api_route(`app.auth.login`) => `app.v?.auth.login`.
     |
      */
 
