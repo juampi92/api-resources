@@ -32,7 +32,7 @@ class APIResourceManager
     protected $routePath;
 
     /**
-     * API Resource constructor
+     * API Resource constructor.
      *
      */
     public function __construct()
@@ -80,7 +80,7 @@ class APIResourceManager
     }
 
     /**
-     *  Get config considering the API name if present
+     *  Get config considering the API name if present.
      *
      * @param string $cfg Config path
      * @param string $name Name of api if present
@@ -99,7 +99,7 @@ class APIResourceManager
     }
 
     /**
-     * Sets the current API version
+     * Sets the current API version.
      *
      * @param string $current
      * @param string $apiName = null
@@ -127,7 +127,7 @@ class APIResourceManager
     }
 
     /**
-     * Gets the current API version
+     * Gets the current API version.
      *
      * @return string
      */
@@ -137,7 +137,7 @@ class APIResourceManager
     }
 
     /**
-     * Checks if the given version is the latest
+     * Checks if the given version is the latest.
      *
      * @param string $c
      *
@@ -153,7 +153,7 @@ class APIResourceManager
     }
 
     /**
-     * Returns the classname with the version considering
+     * Returns the classname with the version considering.
      *
      * @param string $classname
      * @param bool $forceLatest Set to true if last version is required
@@ -178,7 +178,7 @@ class APIResourceManager
     /**
      * Smart builds the classname using the correct version.
      * If it fails with the current version, it falls back to
-     * the latest version. If it still fails, throw exception
+     * the latest version. If it still fails, throw exception.
      *
      * @param string $classname
      *

@@ -31,7 +31,7 @@ class APIResourcesServiceProvider extends ServiceProvider
     }
 
     /**
-     * Registers the publishable config
+     * Registers the publishable config.
      *
      * @return void
      */
