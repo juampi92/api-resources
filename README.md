@@ -197,6 +197,22 @@ class SomethingController extends Controller {
 }
 ```
 
+If you wanna use a ResourceCollection, you might wanna rewrite the `collects()` method.
+
+```php
+class UserCollection extends ResourceCollection
+{
+    protected function collects()
+    {
+        return APIResource::resolveClassname('App\User');
+    }
+}
+```
+
+This way, the ResourceCollection will always have the correct class. 
+
+`resolveClassname` will try to use the current version of the class, but if it's not possible, will use the latest.
+
 ## Nested resources
 
 To take advantage of the **fallback** functionality, it's recomended to use `api_resource` inside the resources. This way you preserve the right version, or the latest if it's not defined.
