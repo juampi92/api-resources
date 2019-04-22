@@ -19,10 +19,13 @@ class APIResourcesMultipleTest extends TestCase
 
     public function test_nested_resources_with_fallback()
     {
-        config(['api.version' => [
-            'app'     => '2',
-            'desktop' => '1'
-        ]]);
+        config([
+            'api.version' => [
+                'app' => '2',
+                'desktop' => '1',
+            ],
+            'api.default' => 'app',
+        ]);
         $resourceManager = new APIResourceManager();
 
         $user = new Fixtures\Models\User();
@@ -32,7 +35,7 @@ class APIResourcesMultipleTest extends TestCase
 
         $this->assertInstanceOf(Fixtures\Resources\App\v1\User::class, $resource);
 
-        /**
+        /*
          * Now change to the desktop API
          */
 

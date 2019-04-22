@@ -5,7 +5,7 @@ namespace Juampi92\APIResources\Exceptions;
 class ResourceNotFoundException extends \Exception
 {
     /**
-     * Create a new exception instance
+     * Create a new exception instance.
      */
     public function __construct($classname, $path)
     {

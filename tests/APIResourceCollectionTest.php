@@ -17,7 +17,6 @@ class APIResourceCollectionTest extends TestCase
         config(['api' => require __DIR__ . '/Fixtures/config/simple.php']);
     }
 
-
     public function test_simple_resource_with_collection()
     {
         $users = collect([new Fixtures\Models\User(), new Fixtures\Models\User()]);

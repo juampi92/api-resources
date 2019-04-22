@@ -244,6 +244,54 @@ Then, you need to configure the **middleware**. Instead of using `api.v:1`, you 
 Then the rest works as explained before.
 
 
+## API Route
+
+Sometimes you must return a route url on the api response.
+If you wanna keep the api version (which is always the current version), api-resources has the solution for you.
+
+```php
+// When defining the routes
+Route::group([
+    'middleware' => ['app', 'api.v:1'],
+    'prefix'     => 'api/v1',
+    // Using name on a group will prefix it.
+    'name'       => 'api.v1.',
+], function ($router) {
+    Route::get('/auth/login', [
+        // This will be api.v1.auth.login
+        'name' => 'auth.login',
+        'use' => '...',
+    ]);
+});
+```
+
+With this we have `api.v1.auth.login` and `api.v2.auth.login` when creating a new version.
+
+Now just do `api_route('api.auth.login')`, and it will output `/api/v1/auth/login` or `/api/v2/auth/login` accordingly.
+
+### How it works
+
+It's grabbing the config `api.resources` and doing a strtolower, so if you have `'resources' => 'App'`, will transform `app.auth.login` into `app.v1.auth.login`.
+If you need to customize it, add a new config entry in `config/api.php` like this:
+
+```php
+    /*
+    |--------------------------------------------------------------------------
+    | Route prefix
+    |--------------------------------------------------------------------------
+    |
+    | By default, the route prefix is the lowercase resources folder.
+    | So it'd be `app.v1.auth.login` has the prefix `app`.
+    |
+    | Using `app` will do api_route(`app.auth.login`) => `app.v?.auth.login`.
+    |
+     */
+
+    'route_prefix' => 'app'
+```
+
+If works with multiple APIs as explained before.
+
 ## Testing
 
 Run the tests with:

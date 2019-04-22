@@ -27,4 +27,12 @@ abstract class TestCase extends BaseTestCase
         $arr = json_encode($array);
         $this->assertAttributeEquals($arr, 'data', $resource->response());
     }
+
+    public function callMethod($obj, $name, array $args)
+    {
+        $class = new \ReflectionClass($obj);
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+        return $method->invokeArgs($obj, $args);
+    }
 }
