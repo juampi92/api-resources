@@ -1,39 +1,40 @@
 <?php
 
 return [
-  /*
-  |--------------------------------------------------------------------------
-  | API Version
-  |--------------------------------------------------------------------------
-  |
-  | This value is the version of your api. This value is used when
-  | there's no specified version on the routes, so it will take this as the
-  | default, or current
-   */
+    /*
+    |--------------------------------------------------------------------------
+    | API Version
+    |--------------------------------------------------------------------------
+    |
+    | This value is the version of your api. This value is used when
+    | there's no specified version on the routes, so it will take this as the
+    | default, or current
+     */
 
-   'version' => [
-     'app' => '1',
-     'desktop' => '2'
-   ],
+    'version' => [
+        'app' => '1',
+        'desktop' => '2',
+        'collection' => '2',
+    ],
 
-   /*
-   |--------------------------------------------------------------------------
-   | API Default
-   |--------------------------------------------------------------------------
-   |
-   |
-    */
+    /*
+    |--------------------------------------------------------------------------
+    | API Default
+    |--------------------------------------------------------------------------
+    |
+    |
+     */
 
-   'default' => 'app',
+    'default' => 'app',
 
-   /*
-   |--------------------------------------------------------------------------
-   | Resorces homepath
-   |--------------------------------------------------------------------------
-   |
-   | This value is the base folder where your resources are stored.
-   |
-    */
+    /*
+    |--------------------------------------------------------------------------
+    | Resorces homepath
+    |--------------------------------------------------------------------------
+    |
+    | This value is the base folder where your resources are stored.
+    |
+     */
 
     'resources_path' => 'Juampi92\APIResources\Tests\Fixtures\Resources',
 
@@ -47,8 +48,9 @@ return [
      */
 
     'resources' => [
-      'app' => 'App',
-      'desktop' => 'Api'
-    ]
+        'app' => 'App',
+        'desktop' => 'Api',
+        'collection' => 'Collections',
+    ],
 
- ];
+];

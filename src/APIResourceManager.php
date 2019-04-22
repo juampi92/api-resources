@@ -3,6 +3,7 @@
 namespace Juampi92\APIResources;
 
 use Exception;
+use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourceManager
 {
@@ -109,11 +110,11 @@ class APIResourceManager
     public function setVersion($current, $apiName = null)
     {
         // Reset pre-cached properties
-        $this->routePath = null;
-        $this->latest = $this->getConfig('version');
-
         $this->current = $current;
         $this->apiName = $apiName;
+
+        $this->routePath = null;
+        $this->latest = $this->getConfig('version');
 
         // Path can be only one or one for each api
         $this->path = config('api.resources_path');
@@ -139,17 +140,53 @@ class APIResourceManager
     /**
      * Checks if the given version is the latest.
      *
-     * @param string $c
+     * @param string $current
      *
-     * @return string
+     * @return bool
      */
-    public function isLatest($c = null)
+    public function isLatest($current = null)
     {
-        if (!isset($c)) {
-            $c = $this->current;
+        if (!isset($current)) {
+            $current = $this->current;
         }
 
-        return $this->latest === $c;
+        return $this->latest === $current;
+    }
+
+    /**
+     * Returns the classname of the versioned resource,
+     * or it's latest version if it doesn't exist.
+     *
+     * Throws an exception if it cannot find it.
+     *
+     * @param string $classname
+     *
+     * @return string
+     * @throws ResourceNotFoundException
+     */
+    public function resolveClassname($classname)
+    {
+        $path = $this->parseClassname($classname);
+
+        // Check if the resource was found
+        if (class_exists($path)) {
+            return $path;
+        }
+
+        // If we are on the latest version, stop searching
+        if ($this->isLatest()) {
+            throw new Exceptions\ResourceNotFoundException($classname, $path);
+        }
+
+        // Search on the latest version
+        $path = $this->parseClassname($classname, true);
+
+        // If still does not exists, fail
+        if (!class_exists($path)) {
+            throw new Exceptions\ResourceNotFoundException($classname, $path);
+        }
+
+        return $path;
     }
 
     /**
@@ -160,17 +197,17 @@ class APIResourceManager
      *
      * @return string
      */
-    public function resolveClassname($classname, $forceLatest = false)
+    protected function parseClassname($classname, $forceLatest = false)
     {
-        $v = $forceLatest ? $this->latest : $this->current;
+        $version = $forceLatest ? $this->latest : $this->current;
 
         if (!empty($this->resources)) {
-            $path = $this->resources . "\\v{$v}\\" . str_after($classname, $this->resources . "\\");
+            $path = $this->resources . "\\v{$version}\\" . str_after($classname, $this->resources . "\\");
         } else {
-            $path = "v{$v}\\" . $classname;
+            $path = "v{$version}\\" . $classname;
         }
 
-        $path = "\\" . $this->path . "\\" . $path;
+        $path = "\\{$this->path}\\{$path}";
 
         return $path;
     }

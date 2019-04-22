@@ -5,7 +5,7 @@ namespace Juampi92\APIResources\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Juampi92\APIResources\APIResourceManager setVersion(string $version, string $api_name = null)
+ * @method static \Juampi92\APIResources\APIResourceManager setVersion(string $version, string $apiName = null)
  * @method static string getVersion()
  * @method static bool isLatest(string $c = null)
  * @method static string resolveClassname(string $classname, bool $forceLatest = null) Returns formatted classname using current version
