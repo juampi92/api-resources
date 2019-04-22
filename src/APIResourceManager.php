@@ -17,11 +17,19 @@ class APIResourceManager
     /**
      * @var string
      */
-    protected $api_name;
+    protected $apiName;
     /**
      * @var string
      */
     protected $resources;
+    /**
+     * @var string
+     */
+    protected $latest;
+    /**
+     * @var string
+     */
+    protected $routePath;
 
     /**
      * API Resource constructor
@@ -29,21 +37,49 @@ class APIResourceManager
      */
     public function __construct()
     {
-        $name = config('api.default', null);
-        $v = $this->getConfig('api.version', $name);
+        $defaultName = config('api.default', null);
+        $latestVersion = $this->getConfig('version', $defaultName);
 
-        if (!$v) {
+        if (!$latestVersion) {
             throw new Exception('You must define a config(\'api\') with a latest version. Do: php artisan vendor:publish --provider="Juampi92/APIResources/APIResourcesServiceProvider"');
         }
 
-        $this->latest = $v;
-        $this->setVersion($v, $name);
+        $this->latest = $latestVersion;
+        $this->setVersion($latestVersion, $defaultName);
+    }
+
+    /**
+     * Returns the name of the versioned route.
+     *
+     * @param string $route
+     * @return string
+     */
+    public function getRouteName($route)
+    {
+        if (!$this->routePath) {
+            $this->routePath = $this->getConfig('route_prefix')
+                ?: strtolower($this->getConfig('resources'));
+        }
+        return "{$this->routePath}.v{$this->current}" . str_after($route, $this->routePath);
+    }
+
+    /**
+     * Returns the versioned url.
+     *
+     * @param string $name
+     * @param array $parameters
+     * @param bool $absolute
+     * @return string
+     */
+    protected function getRoute($name, $parameters = [], $absolute = true)
+    {
+        return route($this->getRouteName($name), $parameters, $absolute);
     }
 
     /**
      *  Get config considering the API name if present
      *
-     * @param string $cfg  Config path
+     * @param string $cfg Config path
      * @param string $name Name of api if present
      *
      * @return mixed The result of the config
@@ -51,33 +87,38 @@ class APIResourceManager
     protected function getConfig($cfg, $name = null)
     {
         if (is_null($name)) {
-            $name = $this->api_name;
+            $name = $this->apiName;
         }
 
-        return config($cfg . ($name ? ".$name" : ''));
+        $name = $name ? ".$name" : '';
+
+        return config("api.$cfg{$name}");
     }
 
     /**
      * Sets the current API version
      *
      * @param string $current
-     * @param string $api_name = null
+     * @param string $apiName = null
      *
      * @return $this
      */
-    public function setVersion($current, $api_name = null)
+    public function setVersion($current, $apiName = null)
     {
+        // Reset pre-cached properties
+        $this->routePath = null;
+        $this->latest = $this->getConfig('version');
+
         $this->current = $current;
-        $this->api_name = $api_name;
-        $this->latest = $this->getConfig('api.version');
+        $this->apiName = $apiName;
 
         // Path can be only one or one for each api
         $this->path = config('api.resources_path');
         if (is_array($this->path)) {
-            $this->path = $this->getConfig('api.resources_path');
+            $this->path = $this->getConfig('resources_path');
         }
 
-        $this->resources = $this->getConfig('api.resources');
+        $this->resources = $this->getConfig('resources');
 
         return $this;
     }

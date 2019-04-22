@@ -4,7 +4,6 @@ namespace Juampi92\APIResources;
 
 class APIResource
 {
-
     protected $path;
 
     /**
@@ -46,5 +45,4 @@ class APIResource
     {
         return forward_static_call_array([$this->path, 'collection'], $args);
     }
-
 }
