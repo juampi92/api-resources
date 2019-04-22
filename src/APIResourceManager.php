@@ -57,8 +57,11 @@ class APIResourceManager
     public function getRouteName($route)
     {
         if (!$this->routePath) {
+            // Grab route_prefix config first. If it's not set,
+            // grab the resources, and replace `\` with `.`, and
+            // transform it all to lowercase.
             $this->routePath = $this->getConfig('route_prefix')
-                ?: strtolower($this->getConfig('resources'));
+                ?: str_replace('\\', '.', strtolower($this->getConfig('resources')));
         }
         return "{$this->routePath}.v{$this->current}" . str_after($route, $this->routePath);
     }
