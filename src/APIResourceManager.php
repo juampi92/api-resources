@@ -75,7 +75,7 @@ class APIResourceManager
      * @param bool $absolute
      * @return string
      */
-    protected function getRoute($name, $parameters = [], $absolute = true)
+    public function getRoute($name, $parameters = [], $absolute = true)
     {
         return route($this->getRouteName($name), $parameters, $absolute);
     }
