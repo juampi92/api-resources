@@ -57,15 +57,36 @@ class APIResourceManager
      */
     public function getRouteName($route)
     {
-        // if (!$this->routePath) {
-            // Grab route_prefix config first. If it's not set,
-            // grab the resources, and replace `\` with `.`, and
-            // transform it all to lowercase.
-            $name = preg_replace('/^([a-z]+)\..*/', '$1', $route);
-            $this->routePath = $this->getConfig('route_prefix', $name)
-                ?: str_replace('\\', '.', strtolower($this->getConfig('resources', $name)));
-        // }
-        return "{$this->routePath}.v{$this->getConfig('version', $name)}" . str_after($route, $this->routePath);
+        // Get the route prefix, which sould be in 'route_prefix' or at least in 'resources' (in lowercase here)
+        $routePrefix = preg_replace('/^([a-z_-]+)\..*/', '$1', $route);
+        // Checks for $routePrefix in the config in case there is no default API or the requested one is different
+        if(
+            // 'resources' needs to be an array in case there is more than one API
+            is_array(config('api.resources')) &&
+            // AND the default differs from the requested prefix
+            $this->apiName !== $routePrefix &&
+            // AND $routePrefix needs to be a valid key in 'resources'
+            array_key_exists($routePrefix, config('api.resources')))
+        {
+            // The requested API is valid, so get the arrays' values
+            $apiVersion = $this->getConfig('version', $routePrefix);
+            $routePath = $this->getConfig('route_prefix', $routePrefix)
+                ?: str_replace('\\', '.', strtolower($this->getConfig('resources', $routePrefix)));
+        }
+        else {
+            // Original code
+            if(! $this->routePath) {
+                // Grab route_prefix config first. If it's not set,
+                // grab the resources, and replace `\` with `.`, and
+                // transform it all to lowercase.
+                $this->routePath = $this->getConfig('route_prefix')
+                    ?: str_replace('\\', '.', strtolower($this->getConfig('resources')));
+            }
+            $apiVersion = $this->current;
+            $routePath = $this->routePath;
+        }
+
+        return "{$routePath}.v{$apiVersion}" . str_after($route, $routePath);
     }
 
     /**
