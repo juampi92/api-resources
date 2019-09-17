@@ -12,6 +12,6 @@ class APIDeprecatedException extends \Exception
      */
     public function __construct()
     {
-        parent::__construct(trans('errors.api.deprecated') , IlluminateResponse::HTTP_MOVED_PERMANENTLY);
+        parent::__construct(trans('errors.api.deprecated'), IlluminateResponse::HTTP_MOVED_PERMANENTLY);
     }
 }

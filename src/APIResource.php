@@ -7,8 +7,6 @@ class APIResource
     protected $path;
 
     /**
-     * API Resource constructor.
-     *
      * @param $path
      */
     public function __construct($path)
