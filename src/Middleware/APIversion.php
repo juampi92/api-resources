@@ -9,7 +9,7 @@ class APIversion
 {
     /**
      * Handle an incoming request by setting
-     * the request's api's current version
+     * the request's api's current version.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure $next

@@ -25,7 +25,7 @@ class APIResourcesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('apiresource', function ($app) {
+        $this->app->singleton('apiresource', function () {
             return new APIResourceManager();
         });
     }

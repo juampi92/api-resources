@@ -32,7 +32,6 @@ return [
     |
     | Here is the folder that has versioned resources. If you store them
     | in the root of 'resources_path', leave this empty or null.
-    |
      */
 
     'resources' => 'App',
@@ -46,7 +45,6 @@ return [
     | So it'd be `app.v1.auth.login` has the prefix `app`.
     |
     | Using `app` will do api_route(`app.auth.login`) => `app.v?.auth.login`.
-    |
      */
 
     // 'route_prefix' => 'app'

@@ -3,6 +3,7 @@
 namespace Juampi92\APIResources;
 
 use Exception;
+use Illuminate\Support\Str;
 use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourceManager
@@ -11,34 +12,35 @@ class APIResourceManager
      * @var string
      */
     protected $current;
+
     /**
      * @var string
      */
     protected $path;
+
     /**
      * @var string
      */
     protected $apiName;
+
     /**
      * @var string
      */
     protected $resources;
+
     /**
      * @var string
      */
     protected $latest;
+
     /**
      * @var string
      */
     protected $routePath;
 
-    /**
-     * API Resource constructor.
-     *
-     */
     public function __construct()
     {
-        $defaultName = config('api.default', null);
+        $defaultName = config('api.default');
         $latestVersion = $this->getConfig('version', $defaultName);
 
         if (!$latestVersion) {
@@ -64,7 +66,7 @@ class APIResourceManager
             $this->routePath = $this->getConfig('route_prefix')
                 ?: str_replace('\\', '.', strtolower($this->getConfig('resources')));
         }
-        return "{$this->routePath}.v{$this->current}" . str_after($route, $this->routePath);
+        return "{$this->routePath}.v{$this->current}" . Str::after($route, $this->routePath);
     }
 
     /**
@@ -202,7 +204,7 @@ class APIResourceManager
         $version = $forceLatest ? $this->latest : $this->current;
 
         if (!empty($this->resources)) {
-            $path = $this->resources . "\\v{$version}\\" . str_after($classname, $this->resources . "\\");
+            $path = $this->resources . "\\v{$version}\\" . Str::after($classname, $this->resources . "\\");
         } else {
             $path = "v{$version}\\" . $classname;
         }

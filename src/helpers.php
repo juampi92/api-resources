@@ -4,7 +4,7 @@ use Juampi92\APIResources\Facades\APIResource;
 
 if (!function_exists('api_resource')) {
     /**
-     * Returns a resource resolver
+     * Returns a resource resolver.
      *
      * @param string $classname
      *
