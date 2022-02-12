@@ -2,45 +2,51 @@
 
 namespace Juampi92\APIResources;
 
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
 class APIResource
 {
-    protected $path;
+    /**
+     * @param class-string<JsonResource|ResourceCollection> $class
+     */
+    public function __construct(
+        /** @var class-string<JsonResource|ResourceCollection> $class */
+        protected string $class,
+    ) {}
 
     /**
-     * @param $path
+     * @return class-string<JsonResource|ResourceCollection>
      */
-    public function __construct($path)
+    public function getClass(): string
     {
-        $this->path = $path;
+        return $this->class;
     }
 
     /**
-     * @param array ...$args
-     *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @param mixed ...$args
+     * @return JsonResource
      */
     public function with(...$args)
     {
-        return forward_static_call_array([$this->path, 'make'], $args);
+        return ($this->class)::make(...$args);
     }
 
     /**
-     * @param array ...$args
-     *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @param mixed ...$args
+     * @return JsonResource
      */
     public function make(...$args)
     {
-        return forward_static_call_array([$this->path, 'make'], $args);
+        return ($this->class)::make(...$args);
     }
 
     /**
-     * @param array ...$args
-     *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @param mixed ...$args
+     * @return ResourceCollection<mixed>
      */
     public function collection(...$args)
     {
-        return forward_static_call_array([$this->path, 'collection'], $args);
+        return ($this->class)::collection(...$args);
     }
 }

@@ -8,7 +8,7 @@ use Juampi92\APIResources\APIResourceManager;
 
 class APIRouteTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

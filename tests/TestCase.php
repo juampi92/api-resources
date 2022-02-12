@@ -2,11 +2,18 @@
 
 namespace Juampi92\APIResources\Tests;
 
+use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Juampi92\APIResources\APIResourcesServiceProvider;
 
 abstract class TestCase extends BaseTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        APIResourceFacade::clearResolvedInstances();
+    }
+
     /**
      * @param \Illuminate\Foundation\Application $application
      *
@@ -23,9 +30,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function assertResourceArray($resource, $array)
     {
-        //$req = request();
-        $arr = json_encode($array);
-        $this->assertAttributeEquals($arr, 'data', $resource->response());
+        $this->assertEquals(json_encode($array), json_encode($resource));
     }
 
     public function callMethod($obj, $name, array $args)

@@ -3,13 +3,10 @@
 namespace Juampi92\APIResources\Tests;
 
 use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
-use Juampi92\APIResources\APIResourceManager;
-use Juampi92\APIResources\APIResource;
-use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourceCollectionTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +21,7 @@ class APIResourceCollectionTest extends TestCase
         APIResourceFacade::setVersion('2');
         $resource = api_resource('App\User')->collection($users);
 
-        $this->assertResourceArray($resource, ['data' => [
+        $this->assertResourceArray($resource, [
             [
                 'id' => 1,
                 'name' => 'asd',
@@ -44,7 +41,7 @@ class APIResourceCollectionTest extends TestCase
                 ],
                 'v' => 2,
             ],
-        ]]);
+        ]);
     }
 
     public function test_collection_resource()
@@ -84,6 +81,7 @@ class APIResourceCollectionTest extends TestCase
         ]);
     }
 
+    /** @group asd */
     public function test_versioned_collection()
     {
         config(['api' => require __DIR__ . '/Fixtures/config/multi.php']);
@@ -94,7 +92,7 @@ class APIResourceCollectionTest extends TestCase
         $resource = api_resource('Collections\UserCollection')
             ->make($users);
 
-        $this->assertResourceArray($resource, ['data' => [
+        $this->assertResourceArray($resource, [
             [
                 'id' => 1,
                 'name' => 'asd',
@@ -104,6 +102,6 @@ class APIResourceCollectionTest extends TestCase
                 'name' => 'asd',
                 'v' => 1,
             ],
-        ]]);
+        ]);
     }
 }

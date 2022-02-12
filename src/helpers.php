@@ -1,18 +1,17 @@
 <?php
 
-use Juampi92\APIResources\Facades\APIResource;
+use Juampi92\APIResources\APIResource;
+use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 
 if (!function_exists('api_resource')) {
     /**
      * Returns a resource resolver.
      *
-     * @param string $classname
-     *
-     * @return \Juampi92\APIResources\APIResource
+     * @param class-string $classname
      */
-    function api_resource($classname)
+    function api_resource(string $classname): APIResource
     {
-        return APIResource::resolve($classname);
+        return APIResourceFacade::resolve($classname);
     }
 }
 
@@ -20,13 +19,10 @@ if (!function_exists('api_route')) {
     /**
      * Generate the URL to a versioned named route.
      *
-     * @param string $name
      * @param mixed $parameters
-     * @param bool $absolute
-     * @return string
      */
-    function api_route($name, $parameters = [], $absolute = true)
+    function api_route(string $name, $parameters = [], bool $absolute = true): string
     {
-        return APIResource::getRoute($name, $parameters, $absolute);
+        return APIResourceFacade::getRoute($name, $parameters, $absolute);
     }
 }

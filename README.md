@@ -218,7 +218,7 @@ This way, the ResourceCollection will always have the correct class.
 To take advantage of the **fallback** functionality, it's recomended to use `api_resource` inside the resources. This way you preserve the right version, or the latest if it's not defined.
 
 ```php
-class Post extends Resource {
+class Post extends JsonResource {
     public function toArray($request)
     {
       return [
