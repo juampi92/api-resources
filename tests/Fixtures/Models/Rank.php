@@ -2,9 +2,7 @@
 
 namespace Juampi92\APIResources\Tests\Fixtures\Models;
 
-use Juampi92\APIResources\Tests\Fixtures\Arrayable;
-
-class Rank implements Arrayable
+class Rank
 {
   // Simulate Eloquent's dynamic attributes
   public $id = 1;

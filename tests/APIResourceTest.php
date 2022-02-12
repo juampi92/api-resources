@@ -2,24 +2,26 @@
 
 namespace Juampi92\APIResources\Tests;
 
-use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
-use Juampi92\APIResources\APIResourceManager;
 use Juampi92\APIResources\APIResource;
+use Juampi92\APIResources\APIResourceManager;
 use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
+use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
+use Juampi92\APIResources\Tests\Fixtures\Resources\App\v2\Post;
+use Juampi92\APIResources\Tests\Fixtures\Resources\App\v2\User;
 
 class APIResourceTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
         // Reset config on each request
-        config(['api' => require __DIR__ . '/Fixtures/config/simple.php']);
+        config(['api' => require __DIR__.'/Fixtures/config/simple.php']);
     }
 
     public function test_manager_resolve_returns_a_resource()
     {
-        APIResourceFacade::setVersion(config('app.version'));
+        APIResourceFacade::setVersion(config('api.version'));
 
         $object = APIResourceFacade::resolve('App\User');
         $this->assertInstanceOf(APIResource::class, $object);
@@ -38,10 +40,7 @@ class APIResourceTest extends TestCase
 
         $resource = api_resource('App\User');
         $this->assertInstanceOf(APIResource::class, $resource);
-        $this->assertAttributeEquals('\Juampi92\APIResources\Tests\Fixtures\Resources\App\v2\User', 'path', $resource);
-
-        //$this->assertInstanceOf(APIResource::class, $object);
-        //APIResourceFacade::make('App\User', [ 'a' => 'b']);
+        $this->assertEquals('\\'.User::class, $resource->getClass());
     }
 
     public function test_returns_resource()
@@ -53,16 +52,16 @@ class APIResourceTest extends TestCase
 
         $this->assertInstanceOf(Fixtures\Resources\App\v2\User::class, $resource);
 
-        $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+        $this->assertResourceArray($resource, [
+            'id' => 1,
             'name' => 'asd',
             'rank' => [
-                'id'   => 1,
+                'id' => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v' => 2,
             ],
-            'v'    => 2,
-        ]]);
+            'v' => 2,
+        ]);
     }
 
     public function test_fallback_to_latest_version()
@@ -73,11 +72,11 @@ class APIResourceTest extends TestCase
 
         $resourceManager->setVersion('1');
 
-        $this->assertAttributeEquals(2, 'latest', $resourceManager);
-        $this->assertAttributeEquals(1, 'current', $resourceManager);
+        $this->assertEquals(1, $resourceManager->getVersion());
+        $this->assertEquals(2, $resourceManager->getLatestVersion());
 
         $resource = $resourceManager->resolve('App\Post');
-        $this->assertAttributeEquals('\Juampi92\APIResources\Tests\Fixtures\Resources\App\v2\Post', 'path', $resource);
+        $this->assertEquals('\\'.Post::class, $resource->getClass());
     }
 
     public function test_fails_if_no_fallback()
@@ -100,40 +99,43 @@ class APIResourceTest extends TestCase
 
         $this->assertInstanceOf(Fixtures\Resources\App\v2\User::class, $resource);
 
-        $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+        $this->assertResourceArray($resource, [
+            'id' => 1,
             'name' => 'asd',
             'rank' => [
-                'id'   => 1,
+                'id' => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v' => 2,
             ],
-            'v'    => 2,
-        ]]);
+            'v' => 2,
+        ]);
     }
 
     public function test_nested_resources_with_fallback()
     {
+        // Setup
         config(['api.version' => 2]);
-        $resourceManager = new APIResourceManager();
 
         $user = new Fixtures\Models\User();
 
-        $resourceManager->setVersion('1');
-        $resource = $resourceManager->resolve('App\User')->make($user);
+        APIResourceFacade::setVersion('1');
 
+        // Execute
+        $resource = APIResourceFacade::resolve('App\User')->make($user);
+
+        // Assert
         $this->assertInstanceOf(Fixtures\Resources\App\v1\User::class, $resource);
 
-        $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+        $this->assertResourceArray($resource, [
+            'id' => 1,
             'name' => 'asd',
             'rank' => [
-                'id'   => 1,
+                'id' => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v' => 2,
             ],
-            'v'    => 1,
-        ]]);
+            'v' => 1,
+        ]);
     }
 
 
@@ -149,10 +151,10 @@ class APIResourceTest extends TestCase
 
         $this->assertInstanceOf(Fixtures\Resources\v1\User::class, $resource);
 
-        $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+        $this->assertResourceArray($resource, [
+            'id' => 1,
             'name' => 'asd',
-            'v'    => 1,
-        ]]);
+            'v' => 1,
+        ]);
     }
 }

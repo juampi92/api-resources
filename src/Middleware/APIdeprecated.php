@@ -9,10 +9,12 @@ class APIdeprecated
     /**
      * Deprecate all incoming requests.
      *
-     * @return mixed
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     * @return never
      * @throws APIDeprecatedException
      */
-    public function handle()
+    public function handle($request, $next)
     {
         throw new APIDeprecatedException();
     }

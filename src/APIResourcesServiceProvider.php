@@ -8,10 +8,8 @@ class APIResourcesServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->registerPublishables();
@@ -20,10 +18,8 @@ class APIResourcesServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('apiresource', function () {
             return new APIResourceManager();
@@ -32,10 +28,8 @@ class APIResourcesServiceProvider extends ServiceProvider
 
     /**
      * Registers the publishable config.
-     *
-     * @return void
      */
-    protected function registerPublishables()
+    protected function registerPublishables(): void
     {
         $this->publishes([
             __DIR__ . '/../publishable/config/api.php' => config_path('api.php'),

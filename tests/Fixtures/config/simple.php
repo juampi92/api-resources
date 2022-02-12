@@ -26,10 +26,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Resorces
+    | Resources
     |--------------------------------------------------------------------------
     |
-    | Here is the folder that has versionated resources. If you store them
+    | Here is the folder that has versioned resources. If you store them
     | in the root, leave this empty ''
      */
 

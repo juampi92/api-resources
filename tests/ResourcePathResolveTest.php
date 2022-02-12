@@ -12,7 +12,7 @@ class ResourcePathResolveTest extends TestCase
      */
     protected $apiResourceManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

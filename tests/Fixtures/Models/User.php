@@ -2,9 +2,9 @@
 
 namespace Juampi92\APIResources\Tests\Fixtures\Models;
 
-use Juampi92\APIResources\Tests\Fixtures\Arrayable;
 
-class User implements Arrayable
+
+class User
 {
   // Simulate Eloquent's dynamic attributes
   public $id = 1;

@@ -5,6 +5,7 @@ namespace Juampi92\APIResources;
 use Exception;
 use Illuminate\Support\Str;
 use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
+use Juampi92\APIResources\Exceptions\WrongConfigurationException;
 
 class APIResourceManager
 {
@@ -38,18 +39,7 @@ class APIResourceManager
      */
     protected $routePath;
 
-    public function __construct()
-    {
-        $defaultName = config('api.default');
-        $latestVersion = $this->getConfig('version', $defaultName);
-
-        if (!$latestVersion) {
-            throw new Exception('You must define a config(\'api\') with a latest version. Do: php artisan vendor:publish --provider="Juampi92/APIResources/APIResourcesServiceProvider"');
-        }
-
-        $this->latest = $latestVersion;
-        $this->setVersion($latestVersion, $defaultName);
-    }
+    public function __construct() {}
 
     /**
      * Returns the name of the versioned route.
@@ -84,21 +74,26 @@ class APIResourceManager
 
     /**
      *  Get config considering the API name if present.
-     *
-     * @param string $cfg Config path
-     * @param string $name Name of api if present
-     *
-     * @return mixed The result of the config
      */
-    protected function getConfig($cfg, $name = null)
+    protected function getConfig(string $key, string $apiName = null): ?string
     {
-        if (is_null($name)) {
-            $name = $this->apiName;
+        $config = config("api.$key");
+
+        $apiName ??= $this->apiName;
+
+        if (!is_array($config)) {
+            return $config;
         }
 
-        $name = $name ? ".$name" : '';
+        if (empty($apiName)) {
+            throw WrongConfigurationException::missingAPIName();
+        }
 
-        return config("api.$cfg{$name}");
+        if (!array_key_exists($apiName, $config)) {
+            throw WrongConfigurationException::apiNotConfigured($apiName, $key);
+        }
+
+        return $config[$apiName];
     }
 
     /**
@@ -109,8 +104,14 @@ class APIResourceManager
      *
      * @return $this
      */
-    public function setVersion($current, $apiName = null)
+    public function setVersion(string $current, $apiName = null)
     {
+        $latestVersion = $this->getConfig('version', $apiName);
+
+        if (!$latestVersion) {
+            throw new Exception('You must define a config(\'api\') with a latest version. Do: php artisan vendor:publish --provider="Juampi92/APIResources/APIResourcesServiceProvider"');
+        }
+
         // Reset pre-cached properties
         $this->current = $current;
         $this->apiName = $apiName;
@@ -139,6 +140,11 @@ class APIResourceManager
         return $this->current;
     }
 
+    public function getLatestVersion(): string
+    {
+        return $this->latest;
+    }
+
     /**
      * Checks if the given version is the latest.
      *
@@ -153,6 +159,11 @@ class APIResourceManager
         }
 
         return $this->latest === $current;
+    }
+
+    public function getBasePath(): string
+    {
+        return $this->path;
     }
 
     /**

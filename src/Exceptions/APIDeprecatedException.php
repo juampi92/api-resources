@@ -2,9 +2,11 @@
 
 namespace Juampi92\APIResources\Exceptions;
 
+use Exception;
 use Illuminate\Http\Response as IlluminateResponse;
+use Illuminate\Support\Facades\Lang;
 
-class APIDeprecatedException extends \Exception
+class APIDeprecatedException extends Exception
 {
     /**
      * Create a new exception instance that contains the deprecated message,
@@ -12,6 +14,9 @@ class APIDeprecatedException extends \Exception
      */
     public function __construct()
     {
-        parent::__construct(trans('errors.api.deprecated'), IlluminateResponse::HTTP_MOVED_PERMANENTLY);
+        parent::__construct(
+            message: Lang::get('errors.api.deprecated'),
+            code: IlluminateResponse::HTTP_MOVED_PERMANENTLY
+        );
     }
 }
