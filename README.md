@@ -1,6 +1,6 @@
 # Api Resources
 [![Latest Version](https://img.shields.io/github/release/juampi92/api-resources.svg?style=flat-square)](https://github.com/juampi92/api-resources/releases)
-[![Build Status](https://img.shields.io/travis/juampi92/api-resources/master.svg?style=flat-square)](https://travis-ci.org/juampi92/api-resources)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/juampi92/api-resources/run-tests?label=tests)](https://github.com/juampi92/api-resources/actions?query=workflow%3ATests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/juampi92/api-resources.svg?style=flat-square)](https://packagist.org/packages/juampi92/api-resources)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
