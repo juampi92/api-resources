@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Juampi92\APIResources\Tests;
-
 
 use Juampi92\APIResources\APIResourceManager;
 

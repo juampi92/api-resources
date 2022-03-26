@@ -2,9 +2,8 @@
 
 namespace Juampi92\APIResources\Tests\Fixtures\Resources\Collections\v1;
 
-use JsonSerializable;
-use Juampi92\APIResources\Tests\Fixtures\Arrayable;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Juampi92\APIResources\Tests\Fixtures\Arrayable;
 
 class User extends JsonResource implements Arrayable
 {

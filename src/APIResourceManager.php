@@ -43,7 +43,7 @@ class APIResourceManager
         $defaultName = config('api.default');
         $latestVersion = $this->getConfig('version', $defaultName);
 
-        if (!$latestVersion) {
+        if (! $latestVersion) {
             throw new Exception('You must define a config(\'api\') with a latest version. Do: php artisan vendor:publish --provider="Juampi92/APIResources/APIResourcesServiceProvider"');
         }
 
@@ -59,13 +59,14 @@ class APIResourceManager
      */
     public function getRouteName($route)
     {
-        if (!$this->routePath) {
+        if (! $this->routePath) {
             // Grab route_prefix config first. If it's not set,
             // grab the resources, and replace `\` with `.`, and
             // transform it all to lowercase.
             $this->routePath = $this->getConfig('route_prefix')
                 ?: str_replace('\\', '.', strtolower($this->getConfig('resources')));
         }
+
         return "{$this->routePath}.v{$this->current}" . Str::after($route, $this->routePath);
     }
 
@@ -148,7 +149,7 @@ class APIResourceManager
      */
     public function isLatest($current = null)
     {
-        if (!isset($current)) {
+        if (! isset($current)) {
             $current = $this->current;
         }
 
@@ -184,7 +185,7 @@ class APIResourceManager
         $path = $this->parseClassname($classname, true);
 
         // If still does not exists, fail
-        if (!class_exists($path)) {
+        if (! class_exists($path)) {
             throw new Exceptions\ResourceNotFoundException($classname, $path);
         }
 
@@ -203,7 +204,7 @@ class APIResourceManager
     {
         $version = $forceLatest ? $this->latest : $this->current;
 
-        if (!empty($this->resources)) {
+        if (! empty($this->resources)) {
             $path = $this->resources . "\\v{$version}\\" . Str::after($classname, $this->resources . "\\");
         } else {
             $path = "v{$version}\\" . $classname;
@@ -229,7 +230,7 @@ class APIResourceManager
         $path = $this->resolveClassname($classname);
 
         // Check if the resource was found
-        if (!class_exists($path)) {
+        if (! class_exists($path)) {
 
             // If we are on the latest version, stop searching
             if ($this->isLatest()) {
@@ -240,7 +241,7 @@ class APIResourceManager
             $path = $this->resolveClassname($classname, true);
 
             // If still does not exists, fail
-            if (!class_exists($path)) {
+            if (! class_exists($path)) {
                 throw new Exceptions\ResourceNotFoundException($classname, $path);
             }
         }
@@ -257,6 +258,7 @@ class APIResourceManager
     public function make($classname, ...$args)
     {
         $resource = $this->resolve($classname);
+
         return $resource->make(...$args);
     }
 
@@ -269,6 +271,7 @@ class APIResourceManager
     public function collection($classname, ...$args)
     {
         $resource = $this->resolve($classname);
+
         return $resource->collection(...$args);
     }
 }

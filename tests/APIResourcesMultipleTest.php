@@ -2,10 +2,7 @@
 
 namespace Juampi92\APIResources\Tests;
 
-use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 use Juampi92\APIResources\APIResourceManager;
-use Juampi92\APIResources\APIResource;
-use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourcesMultipleTest extends TestCase
 {

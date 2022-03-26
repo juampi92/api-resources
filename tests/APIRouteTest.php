@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Juampi92\APIResources\Tests;
-
 
 use Juampi92\APIResources\APIResourceManager;
 
@@ -59,7 +57,7 @@ class APIRouteTest extends TestCase
             'api.resources' => [
                 'app' => 'App2',
                 'default' => 'Apii',
-            ]]);
+            ], ]);
         $resourceManager = new APIResourceManager();
 
         $resourceManager->setVersion('1', 'app');

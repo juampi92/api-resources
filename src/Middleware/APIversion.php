@@ -22,6 +22,7 @@ class APIversion
     public function handle($request, Closure $next, $apiVersion, $apiName = null)
     {
         APIResource::setVersion($apiVersion, $apiName);
+
         return $next($request);
     }
 }

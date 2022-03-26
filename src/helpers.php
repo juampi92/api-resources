@@ -2,7 +2,7 @@
 
 use Juampi92\APIResources\Facades\APIResource;
 
-if (!function_exists('api_resource')) {
+if (! function_exists('api_resource')) {
     /**
      * Returns a resource resolver.
      *
@@ -16,7 +16,7 @@ if (!function_exists('api_resource')) {
     }
 }
 
-if (!function_exists('api_route')) {
+if (! function_exists('api_route')) {
     /**
      * Generate the URL to a versioned named route.
      *

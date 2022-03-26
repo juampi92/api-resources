@@ -17,7 +17,8 @@
     },
     "require-dev": {
       "orchestra/testbench": "^5.0|^6.0|^7.0",
-      "phpunit/phpunit": "^9.4"
+      "phpunit/phpunit": "^9.4",
+      "friendsofphp/php-cs-fixer": "^3.8"
     },
     "autoload": {
         "psr-4": {
@@ -34,7 +35,8 @@
     },
     "scripts": {
       "test": "vendor/bin/phpunit --colors=always",
-      "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+      "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+      "php-cs-fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php"
     },
     "extra": {
         "laravel": {

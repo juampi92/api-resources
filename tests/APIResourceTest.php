@@ -2,10 +2,10 @@
 
 namespace Juampi92\APIResources\Tests;
 
-use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
-use Juampi92\APIResources\APIResourceManager;
 use Juampi92\APIResources\APIResource;
+use Juampi92\APIResources\APIResourceManager;
 use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
+use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 
 class APIResourceTest extends TestCase
 {
@@ -54,14 +54,14 @@ class APIResourceTest extends TestCase
         $this->assertInstanceOf(Fixtures\Resources\App\v2\User::class, $resource);
 
         $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+            'id' => 1,
             'name' => 'asd',
             'rank' => [
-                'id'   => 1,
+                'id' => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v' => 2,
             ],
-            'v'    => 2,
+            'v' => 2,
         ]]);
     }
 
@@ -101,14 +101,14 @@ class APIResourceTest extends TestCase
         $this->assertInstanceOf(Fixtures\Resources\App\v2\User::class, $resource);
 
         $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+            'id' => 1,
             'name' => 'asd',
             'rank' => [
-                'id'   => 1,
+                'id' => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v' => 2,
             ],
-            'v'    => 2,
+            'v' => 2,
         ]]);
     }
 
@@ -125,17 +125,16 @@ class APIResourceTest extends TestCase
         $this->assertInstanceOf(Fixtures\Resources\App\v1\User::class, $resource);
 
         $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+            'id' => 1,
             'name' => 'asd',
             'rank' => [
-                'id'   => 1,
+                'id' => 1,
                 'name' => 'adm',
-                'v'    => 2
+                'v' => 2,
             ],
-            'v'    => 1,
+            'v' => 1,
         ]]);
     }
-
 
     public function test_without_resource_folder()
     {
@@ -150,9 +149,9 @@ class APIResourceTest extends TestCase
         $this->assertInstanceOf(Fixtures\Resources\v1\User::class, $resource);
 
         $this->assertResourceArray($resource, ['data' => [
-            'id'   => 1,
+            'id' => 1,
             'name' => 'asd',
-            'v'    => 1,
+            'v' => 1,
         ]]);
     }
 }

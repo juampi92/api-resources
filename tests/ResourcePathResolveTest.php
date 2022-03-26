@@ -3,7 +3,6 @@
 namespace Juampi92\APIResources\Tests;
 
 use Juampi92\APIResources\APIResourceManager;
-use Juampi92\APIResources\Facades\APIResource;
 
 class ResourcePathResolveTest extends TestCase
 {
