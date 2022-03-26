@@ -7,7 +7,7 @@ use Juampi92\APIResources\Facades\APIResource as APIResourceFacade;
 
 class BasicTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

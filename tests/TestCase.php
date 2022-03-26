@@ -4,12 +4,12 @@ namespace Juampi92\APIResources\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Juampi92\APIResources\APIResourcesServiceProvider;
+use ReflectionObject;
 
 abstract class TestCase extends BaseTestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $application
-     *
      * @return array
      */
     protected function getPackageProviders($application)
@@ -17,13 +17,8 @@ abstract class TestCase extends BaseTestCase
         return [APIResourcesServiceProvider::class];
     }
 
-    /**
-     * @param $resource
-     * @param $array
-     */
     protected function assertResourceArray($resource, $array)
     {
-        //$req = request();
         $arr = json_encode($array);
         $this->assertAttributeEquals($arr, 'data', $resource->response());
     }
@@ -34,5 +29,14 @@ abstract class TestCase extends BaseTestCase
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method->invokeArgs($obj, $args);
+    }
+
+    protected function assertAttributeEquals($expects, $attribute, $object): void
+    {
+        $class = new ReflectionObject($object);
+        $property = $class->getProperty($attribute);
+        $property->setAccessible(true);
+
+        $this->assertEquals($expects, $property->getValue($object));
     }
 }

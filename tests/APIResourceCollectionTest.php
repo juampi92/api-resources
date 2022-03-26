@@ -9,7 +9,7 @@ use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
 class APIResourceCollectionTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
