@@ -12,6 +12,7 @@ class APIDeprecatedException extends \Exception
      */
     public function __construct()
     {
+        // @phpstan-ignore-next-line
         parent::__construct(trans('errors.api.deprecated'), IlluminateResponse::HTTP_MOVED_PERMANENTLY);
     }
 }

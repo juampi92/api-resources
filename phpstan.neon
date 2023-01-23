@@ -1,0 +1,6 @@
+parameters:
+	level: 8
+	paths:
+		- src
+	ignoreErrors:
+		- '#Parameter \#2 \$args of function forward_static_call_array expects array\<int, mixed\>, array\<int\|string, mixed\> given.#'

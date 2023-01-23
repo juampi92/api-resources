@@ -2,12 +2,18 @@
 
 namespace Juampi92\APIResources;
 
+use Illuminate\Http\Resources\Json\JsonResource;
+
+/**
+ * @template TResource of JsonResource
+ */
 class APIResource
 {
+    /** @var class-string<TResource> */
     protected $path;
 
     /**
-     * @param $path
+     * @param class-string<TResource> $path
      */
     public function __construct($path)
     {
@@ -15,9 +21,9 @@ class APIResource
     }
 
     /**
-     * @param array ...$args
+     * @param mixed ...$args
      *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @return JsonResource
      */
     public function with(...$args)
     {
@@ -25,9 +31,9 @@ class APIResource
     }
 
     /**
-     * @param array ...$args
+     * @param mixed ...$args
      *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @return JsonResource
      */
     public function make(...$args)
     {
@@ -35,9 +41,9 @@ class APIResource
     }
 
     /**
-     * @param array ...$args
+     * @param mixed ...$args
      *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @return JsonResource
      */
     public function collection(...$args)
     {
