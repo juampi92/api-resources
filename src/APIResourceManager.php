@@ -231,7 +231,6 @@ class APIResourceManager
 
         // Check if the resource was found
         if (! class_exists($path)) {
-
             // If we are on the latest version, stop searching
             if ($this->isLatest()) {
                 throw new Exceptions\ResourceNotFoundException($classname, $path);
