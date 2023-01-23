@@ -3,6 +3,7 @@
 namespace Juampi92\APIResources;
 
 use Exception;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 use Juampi92\APIResources\Exceptions\ResourceNotFoundException;
 
@@ -19,7 +20,7 @@ class APIResourceManager
     protected $path;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $apiName;
 
@@ -34,7 +35,7 @@ class APIResourceManager
     protected $latest;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $routePath;
 
@@ -74,7 +75,7 @@ class APIResourceManager
      * Returns the versioned url.
      *
      * @param string $name
-     * @param array $parameters
+     * @param array<\Illuminate\Contracts\Routing\UrlRoutable|string|\BackedEnum> $parameters
      * @param bool $absolute
      * @return string
      */
@@ -106,7 +107,7 @@ class APIResourceManager
      * Sets the current API version.
      *
      * @param string $current
-     * @param string $apiName = null
+     * @param string|null $apiName = null
      *
      * @return $this
      */
@@ -164,7 +165,7 @@ class APIResourceManager
      *
      * @param string $classname
      *
-     * @return string
+     * @return class-string<JsonResource>
      * @throws ResourceNotFoundException
      */
     public function resolveClassname($classname)
@@ -198,7 +199,7 @@ class APIResourceManager
      * @param string $classname
      * @param bool $forceLatest Set to true if last version is required
      *
-     * @return string
+     * @return class-string<JsonResource>
      */
     protected function parseClassname($classname, $forceLatest = false)
     {
@@ -212,6 +213,7 @@ class APIResourceManager
 
         $path = "\\{$this->path}\\{$path}";
 
+        // @phpstan-ignore-next-line
         return $path;
     }
 
@@ -222,7 +224,7 @@ class APIResourceManager
      *
      * @param string $classname
      *
-     * @return APIResource
+     * @return APIResource<JsonResource>
      * @throws Exceptions\ResourceNotFoundException
      */
     public function resolve($classname)
@@ -237,9 +239,9 @@ class APIResourceManager
             }
 
             // Search on the latest version
-            $path = $this->resolveClassname($classname, true);
+            $path = $this->resolveClassname($classname);
 
-            // If still does not exists, fail
+            // If still does not exist, fail
             if (! class_exists($path)) {
                 throw new Exceptions\ResourceNotFoundException($classname, $path);
             }
@@ -250,9 +252,9 @@ class APIResourceManager
 
     /**
      * @param string $classname
-     * @param array $args
+     * @param mixed ...$args
      *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @return JsonResource
      */
     public function make($classname, ...$args)
     {
@@ -263,9 +265,9 @@ class APIResourceManager
 
     /**
      * @param string $classname
-     * @param array ...$args
+     * @param mixed ...$args
      *
-     * @return \Illuminate\Http\Resources\Json\Resource
+     * @return JsonResource
      */
     public function collection($classname, ...$args)
     {

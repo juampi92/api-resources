@@ -11,14 +11,15 @@
         }
     ],
     "require": {
-      "php" : "^7.4|^8.0|^8.1",
+      "php" : "^7.4|^8.0|^8.1|^8.2",
       "illuminate/support": "^7.0|^8.0|^9.0",
       "illuminate/http": "^7.0|^8.0|^9.0"
     },
     "require-dev": {
       "orchestra/testbench": "^5.0|^6.0|^7.0",
       "phpunit/phpunit": "^9.4",
-      "friendsofphp/php-cs-fixer": "^3.8"
+      "friendsofphp/php-cs-fixer": "^3.8",
+      "phpstan/phpstan": "^1.9"
     },
     "autoload": {
         "psr-4": {
@@ -36,7 +37,8 @@
     "scripts": {
       "test": "vendor/bin/phpunit --colors=always",
       "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-      "php-cs-fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php"
+      "php-cs-fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php",
+      "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon"
     },
     "extra": {
         "laravel": {
